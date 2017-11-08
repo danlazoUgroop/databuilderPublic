@@ -1,0 +1,164 @@
+USE [eSoft_db]
+GO
+
+/****** Object:  Table [dbo].[POtPOHeader]    Script Date: 11/8/2017 2:43:34 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[POtPOHeader](
+	[POKey] [int] NOT NULL,
+	[POID] [varchar](25) NOT NULL,
+	[TranDate] [datetime] NULL,
+	[CompKey] [int] NULL,
+	[Whsekey] [int] NULL,
+	[BrandKey] [int] NULL,
+	[Vendkey] [int] NULL,
+	[Comment] [varchar](255) NULL,
+	[Currkey] [int] NULL,
+	[CurrRate] [decimal](15, 5) NULL DEFAULT (0),
+	[TotPurchAmt] [decimal](15, 5) NULL DEFAULT (0),
+	[TotPurchAmtHC] [decimal](15, 5) NULL DEFAULT (0),
+	[Wsp] [decimal](15, 5) NULL DEFAULT (0),
+	[ETADate] [datetime] NULL,
+	[Destination] [varchar](100) NULL,
+	[ApprUserID] [varchar](25) NULL,
+	[ApprStatus] [int] NULL DEFAULT (0),
+	[Status] [int] NULL DEFAULT (0),
+	[CreateDate] [datetime] NULL DEFAULT (getdate()),
+	[CreateUserId] [varchar](25) NULL,
+	[UpdateDate] [datetime] NULL DEFAULT (getdate()),
+	[UpdateUserId] [varchar](25) NULL,
+	[Usrfld1Char] [varchar](25) NULL,
+	[Usrfld2Int] [int] NULL,
+	[Usrfld3Date] [datetime] NULL,
+	[InUse] [int] NULL DEFAULT (0),
+	[VatFlag] [int] NULL DEFAULT (0),
+	[AttenTo] [varchar](100) NULL DEFAULT (0),
+	[FaxNo] [varchar](15) NULL DEFAULT (0)
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+USE [eSoft_db]
+GO
+
+/****** Object:  Table [dbo].[POtPODetail]    Script Date: 11/8/2017 2:54:55 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[POtPODetail](
+	[Pokey] [int] NOT NULL,
+	[POlineKey] [int] NOT NULL,
+	[itemkey] [int] NULL,
+	[uomkey] [int] NULL,
+	[sizekey] [int] NULL,
+	[cbm] [decimal](15, 5) NULL DEFAULT (0),
+	[gwt] [decimal](15, 5) NULL DEFAULT (0),
+	[tons] [decimal](15, 5) NULL DEFAULT (0),
+	[qli] [decimal](15, 5) NULL DEFAULT (0),
+	[pallet] [decimal](15, 5) NULL DEFAULT (0),
+	[uprice] [decimal](15, 5) NULL DEFAULT (0),
+	[wsp] [decimal](15, 5) NULL DEFAULT (0),
+	[QtyOrder] [decimal](15, 5) NULL DEFAULT (0),
+	[QtyOrderHC] [decimal](15, 5) NULL DEFAULT (0),
+	[QtyORcvd] [decimal](15, 5) NULL DEFAULT (0),
+	[QtyORcvdHC] [decimal](15, 5) NULL DEFAULT (0),
+	[PackagingQty] [decimal](15, 5) NULL DEFAULT (0),
+	[Length] [decimal](15, 5) NULL DEFAULT (0),
+	[Height] [decimal](15, 5) NULL DEFAULT (0),
+	[Width] [decimal](15, 5) NULL DEFAULT (0),
+	[discamt] [decimal](15, 5) NULL,
+	[disckey] [decimal](15, 5) NULL,
+	[VatKey] [int] NULL,
+	[VatAmt] [decimal](15, 5) NULL
+) ON [PRIMARY]
+
+GO
+
+USE [eSoft_db]
+GO
+
+/****** Object:  Table [dbo].[POtArrivalHeader]    Script Date: 11/8/2017 2:55:25 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[POtArrivalHeader](
+	[ArrivalKey] [int] NOT NULL,
+	[TranDate] [datetime] NULL,
+	[ArrivalID] [varchar](25) NOT NULL,
+	[PackKey] [int] NOT NULL,
+	[POKey] [int] NOT NULL,
+	[Comment] [varchar](100) NULL,
+	[BLNum] [varchar](40) NULL,
+	[SupplierDr] [varchar](40) NULL,
+	[ContSize] [varchar](40) NULL,
+	[Status] [int] NULL DEFAULT (0),
+	[CreateDate] [datetime] NULL DEFAULT (getdate()),
+	[CreateUserId] [varchar](25) NULL,
+	[UpdateDate] [datetime] NULL DEFAULT (getdate()),
+	[UpdateUserId] [varchar](25) NULL,
+	[Usrfld1Char] [varchar](25) NULL,
+	[Usrfld2Int] [int] NULL,
+	[Usrfld3Date] [datetime] NULL,
+	[InUse] [int] NULL DEFAULT (0)
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+USE [eSoft_db]
+GO
+
+/****** Object:  Table [dbo].[POtArrivalDetail]    Script Date: 11/8/2017 2:55:46 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[POtArrivalDetail](
+	[ArrivalKey] [int] NULL,
+	[ArrivalLineKey] [int] NULL,
+	[PackLineKey] [int] NULL,
+	[POLineKey] [int] NULL,
+	[ItemKey] [int] NULL,
+	[UomKey] [int] NULL,
+	[POQty] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__POQty__76AC771E]  DEFAULT (0),
+	[POQtyHC] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__POQty__77A09B57]  DEFAULT (0),
+	[PackingQty] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__Packi__7894BF90]  DEFAULT (0),
+	[PackingQtyHC] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__Packi__7988E3C9]  DEFAULT (0),
+	[ReceivedQty] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__Recei__7A7D0802]  DEFAULT (0),
+	[ReceivedQtyHC] [decimal](15, 5) NULL CONSTRAINT [DF__POtArriva__Recei__7B712C3B]  DEFAULT (0),
+	[Comment] [varchar](40) NULL,
+	[Status] [int] NULL CONSTRAINT [DF__POtArriva__Statu__7C655074]  DEFAULT (0)
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
